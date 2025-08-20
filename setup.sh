@@ -77,14 +77,26 @@ CASKS=(
   docker
 )
 
-echo -e "${YELLOW}==> Installing core packages: ${CORE_PACKAGES[*]}${RESET}"
-brew install "${CORE_PACKAGES[@]}"
+# ====== Install Core Packages ======
+echo -e "${YELLOW}==> Installing core packages...${RESET}"
+for pkg in "${CORE_PACKAGES[@]}"; do
+  echo -e "${YELLOW}Installing $pkg...${RESET}"
+  brew install "$pkg" || true
+done
 
-echo -e "${YELLOW}==> Installing DevOps toolkit: ${DEVOPS_PACKAGES[*]}${RESET}"
-brew install "${DEVOPS_PACKAGES[@]}"
+# ====== Install DevOps Toolkit ======
+echo -e "${YELLOW}==> Installing DevOps toolkit...${RESET}"
+for pkg in "${DEVOPS_PACKAGES[@]}"; do
+  echo -e "${YELLOW}Installing $pkg...${RESET}"
+  brew install "$pkg" || true
+done
 
-echo -e "${YELLOW}==> Installing casks: ${CASKS[*]}${RESET}"
-brew install --cask "${CASKS[@]}"
+# ====== Install Casks ======
+echo -e "${YELLOW}==> Installing cask apps...${RESET}"
+for cask in "${CASKS[@]}"; do
+  echo -e "${YELLOW}Installing $cask...${RESET}"
+  brew install --cask "$cask" || true
+done
 
 # ====== Setup Bash Profile ======
 BASHRC="$HOME/.bashrc"
