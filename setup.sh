@@ -20,7 +20,7 @@ echo -e "${YELLOW}==> Updating Homebrew...${RESET}"
 brew update
 
 # ====== Core Packages ======
-PACKAGES=(
+CORE_PACKAGES=(
   kubectl
   terraform
   docker
@@ -32,13 +32,56 @@ PACKAGES=(
   jq
 )
 
-echo -e "${YELLOW}==> Installing packages: ${PACKAGES[*]}${RESET}"
-brew install "${PACKAGES[@]}"
+# ====== Extended DevOps Toolkit ======
+DEVOPS_PACKAGES=(
+  # Cloud CLIs
+  awscli
+  azure-cli
+  google-cloud-sdk
 
-# ====== Cask Apps (GUI tools like Docker Desktop) ======
+  # Kubernetes
+  helm
+  k9s
+  stern
+  kustomize
+
+  # HashiCorp / IaC
+  packer
+
+  # System / Debugging
+  htop
+  iftop
+  mtr
+  nmap
+  watch
+  tree
+
+  # Text / Data Tools
+  yq
+  bat
+  fzf
+  ripgrep
+  fd
+
+  # Productivity / Misc
+  tmux
+  direnv
+  exa
+  gh
+  age
+  sops
+)
+
+# ====== Cask Apps (GUI) ======
 CASKS=(
   docker
 )
+
+echo -e "${YELLOW}==> Installing core packages: ${CORE_PACKAGES[*]}${RESET}"
+brew install "${CORE_PACKAGES[@]}"
+
+echo -e "${YELLOW}==> Installing DevOps toolkit: ${DEVOPS_PACKAGES[*]}${RESET}"
+brew install "${DEVOPS_PACKAGES[@]}"
 
 echo -e "${YELLOW}==> Installing casks: ${CASKS[*]}${RESET}"
 brew install --cask "${CASKS[@]}"
